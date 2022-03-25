@@ -1,4 +1,4 @@
-package com.example.task.ui.done
+package com.example.task.ui.home.done
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
