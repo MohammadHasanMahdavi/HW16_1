@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.dialog.EditTaskDialogFragment">
+
+
+    <EditText
+        android:id="@+id/edit_title_et"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+
+        android:autofillHints="name"
+        android:ems="20"
+        android:hint="@string/title" />
+
+    <EditText
+        android:id="@+id/edit_description_et"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+
+        android:ems="20"
+        android:hint="@string/description"
+        android:lines="3" />
+
+    <Button
+        android:id="@+id/edit_date_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp" />
+
+    <Button
+        android:id="@+id/edit_time_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/time" />
+    <CheckBox
+        android:id="@+id/edit_done_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="32dp"
+        android:text="@string/done"/>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/edit_btn"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="@string/edit" />
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/edit_save_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/save" />
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/delete_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/delete" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

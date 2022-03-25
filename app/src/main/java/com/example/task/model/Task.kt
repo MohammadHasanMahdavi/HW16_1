@@ -6,11 +6,13 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(foreignKeys = [])
+@Entity(tableName = "Task")
 data class Task (
-    @PrimaryKey @ColumnInfo(name = "Id") val id : Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "Id") val id : Int,
+    @ColumnInfo(name = "UserOwnerId") val userOwnerId : Int,
     @ColumnInfo(name = "Title") val title:String,
     @ColumnInfo(name = "Description") val description : String,
-    @ColumnInfo(name = "Date") val date : Date,
+    @ColumnInfo(name = "Date") val date : String,
+    @ColumnInfo(name = "Time") val time : String,
     @ColumnInfo(name = "State") val state : State
     )

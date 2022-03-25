@@ -1,13 +1,10 @@
-package com.example.task.ui
+package com.example.task.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.task.R
-import com.example.task.model.Task
 import com.example.task.ui.home.dialog.SaveTaskDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout

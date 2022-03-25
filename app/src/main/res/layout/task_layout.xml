@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/purple_200"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/icon_card_view"
+        app:cardCornerRadius="40dp"
+        android:elevation="4dp"
+        app:cardElevation="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/icon_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/date_tv"
+        android:layout_margin="2dp"
+        android:layout_width="5dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textColor="@color/black"
+        android:layout_weight="1"
+        android:text="@string/yyyy_mm_dd" />
+
+    <TextView
+        android:id="@+id/time_tv"
+        android:layout_margin="2dp"
+        android:textColor="@color/black"
+        android:layout_width="5dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:text="hh:mm" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_margin="2dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="end|top"
+        android:layout_width="4dp"
+        android:textAlignment="viewEnd"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/title" />
+</LinearLayout>
