@@ -78,7 +78,8 @@ class SaveTaskDialogFragment() : DialogFragment(), DatePickerDialog.OnDateSetLis
                         description,
                         dateAsString,
                         timeAsString,
-                        state
+                        state,
+                        ""
                     )
                     thread { model!!.insertTask(task) }
                     dismiss()

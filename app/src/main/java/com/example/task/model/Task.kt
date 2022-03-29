@@ -14,5 +14,6 @@ data class Task (
     @ColumnInfo(name = "Description") val description : String,
     @ColumnInfo(name = "Date") val date : String,
     @ColumnInfo(name = "Time") val time : String,
-    @ColumnInfo(name = "State") val state : State
+    @ColumnInfo(name = "State") val state : State,
+    @ColumnInfo(name = "imageLocation") val location : String
     )

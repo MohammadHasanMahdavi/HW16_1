@@ -72,4 +72,7 @@ class TaskRecyclerAdapter(var taskList : MutableList<Task>,val manager : Fragmen
             taskId = id
         }
     }
+    fun setData(list:MutableList<Task>){
+        taskList = list
+    }
 }

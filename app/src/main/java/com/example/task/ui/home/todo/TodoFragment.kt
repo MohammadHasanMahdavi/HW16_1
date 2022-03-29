@@ -21,7 +21,7 @@ import com.example.task.ui.login.EXTRAS_USERNAME
 import kotlin.concurrent.thread
 
 
-class TodoFragment : Fragment(R.layout.fragment_todo) ,SearchView.OnQueryTextListener{
+class TodoFragment : Fragment(R.layout.fragment_todo),SearchView.OnQueryTextListener{
     val factory = HomeViewModelFractory()
     var model : HomeViewModel? = null
     val taskList = mutableListOf<Task>()
@@ -63,31 +63,24 @@ class TodoFragment : Fragment(R.layout.fragment_todo) ,SearchView.OnQueryTextLis
         model!!.username.value = requireActivity().intent.getStringExtra(EXTRAS_USERNAME)
     }
 
-
-
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query != null){
+        if (query != null)
             searchDatabase(query)
-        }
         return true
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        if (query != null){
+        if (query != null)
             searchDatabase(query)
-        }
         return true
     }
 
-    fun searchDatabase(query:String){
+    fun searchDatabase(query: String?){
         val searchQuery = "$query"
 
-        model!!.searchDatabaseResult.observe(viewLifecycleOwner){list ->
-            list.let {
-                recyclerAdapter.taskList = it
-            }
-        }
+        model!!.searchDatabase(searchQuery)
     }
+
 }
 
 

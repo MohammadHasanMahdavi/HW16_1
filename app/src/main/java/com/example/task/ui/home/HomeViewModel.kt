@@ -14,12 +14,7 @@ class HomeViewModel(private val repository: TaskRepository) : ViewModel(){
         MutableLiveData<String>()
     }
 
-    val taskList : MutableLiveData<MutableList<Task>> by lazy {
-        MutableLiveData<MutableList<Task>>()
-    }
-    val searchDatabaseResult : MutableLiveData<MutableList<Task>> by lazy {
-        MutableLiveData<MutableList<Task>>()
-    }
+    var taskList = MutableLiveData<MutableList<Task>>()
 
     fun deleteTask(task: Task){
         thread { repository.deleteTask(task)}.join(5000)
@@ -42,7 +37,7 @@ class HomeViewModel(private val repository: TaskRepository) : ViewModel(){
     }
     fun searchDatabase(searchQuery : String?){
         thread {
-            searchDatabaseResult.value = repository.searchDatabase(searchQuery) as MutableList<Task>
+            taskList.value = repository.searchDatabase(searchQuery) as MutableList<Task>
         }
     }
 

@@ -47,13 +47,29 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="@string/time" />
-    <CheckBox
-        android:id="@+id/edit_done_cb"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_margin="32dp"
-        android:text="@string/done"/>
+        android:layout_gravity="center">
+        <RadioButton
+            android:id="@+id/edit_done_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DONE"/>
+        <RadioButton
+            android:id="@+id/edit_doing_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DOING"/>
+        <RadioButton
+            android:id="@+id/edit_todo_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODO"/>
+
+    </RadioGroup>
     <LinearLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"
@@ -89,7 +105,7 @@
 
     <Button
         android:id="@+id/edit_share_btn"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="share"
         android:layout_margin="16dp"/>

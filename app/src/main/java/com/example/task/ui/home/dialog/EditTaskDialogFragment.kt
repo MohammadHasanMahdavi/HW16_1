@@ -54,11 +54,16 @@ class EditTaskDialogFragment(var title:String,var description:String,var date:St
         val editButton = rootView.findViewById<Button>(R.id.edit_btn)
         val deleteButton = rootView.findViewById<Button>(R.id.delete_btn)
         val shareButton = rootView.findViewById<Button>(R.id.edit_share_btn)
+        val todoRadioButton = rootView.findViewById<RadioButton>(R.id.edit_todo_state)
+        val doneRadioButton = rootView.findViewById<RadioButton>(R.id.edit_done_state)
+        val doingRadioButton = rootView.findViewById<RadioButton>(R.id.edit_doing_state)
+
+
 
         shareButton.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, "$title\n$description\n$date\n$time\n")
                 type = "text/plain"
             }
 
@@ -68,14 +73,18 @@ class EditTaskDialogFragment(var title:String,var description:String,var date:St
 
         deleteButton.setOnClickListener {
             model!!.deleteTask(
-                Task(taskId,model!!.username.value,title,description,date,time,State.DONE)
+                Task(taskId,model!!.username.value,title,description,date,time,State.DONE,"")
             )
             dismiss()
         }
 
         editSaveButton.setOnClickListener {
+            val state = if (todoRadioButton.isChecked) State.TODO else if (doneRadioButton.isChecked) State.DONE else State.DOING
+            val title = titleEditText.text.toString()
+            val description = descriptionEditText.text.toString()
+
             model!!.updateTask(
-                Task(taskId,model!!.username.value,title,description,date,time,State.DONE)
+                Task(taskId,model!!.username.value,title,description,dateAsString,timeAsString,state,"")
             )
             Log.d("TAGGG",taskId.toString())
             Toast.makeText(requireContext(), taskId.toString(), Toast.LENGTH_SHORT).show()

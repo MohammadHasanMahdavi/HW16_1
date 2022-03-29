@@ -1,12 +1,15 @@
 package com.example.task.ui.home
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.task.R
 import com.example.task.ui.home.dialog.SaveTaskDialogFragment
@@ -16,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(){
     val factory = HomeViewModelFractory()
     var model : HomeViewModel?= null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +52,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         val search = menu?.findItem(R.id.search)
-        val searchView = search?.actionView as? SearchView
-        searchView?.isSubmitButtonEnabled = true
-
+        search?.setOnMenuItemClickListener {
+            true
+        }
         val exit = menu?.findItem(R.id.exit)
         exit?.setOnMenuItemClickListener {
             val intent = Intent(this,LoginActivity::class.java)
@@ -60,7 +63,16 @@ class HomeActivity : AppCompatActivity() {
         }
         val deleteAll = menu?.findItem(R.id.clear_tasks)
         deleteAll?.setOnMenuItemClickListener {
-            model!!.deleteAll()
+            AlertDialog.Builder(this)
+                .setMessage("Are You Sure?")
+                .setNegativeButton("No"){_,_->
+
+                }
+                .setPositiveButton("Yes"){_,_->
+                    model!!.deleteAll()
+                }
+                .show()
+
             true
         }
         return true
@@ -71,4 +83,7 @@ class HomeActivity : AppCompatActivity() {
         model = ViewModelProvider(this,factory).get(HomeViewModel::class.java)
     }
 
+    override fun onBackPressed() {
+
+    }
 }
