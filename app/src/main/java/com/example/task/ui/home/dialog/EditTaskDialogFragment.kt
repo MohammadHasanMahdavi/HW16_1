@@ -63,7 +63,7 @@ class EditTaskDialogFragment(var title:String,var description:String,var date:St
         shareButton.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "$title\n$description\n$date\n$time\n")
+                putExtra(Intent.EXTRA_TEXT, "title : $title\ndescription : $description\ndate : $date\ntime : $time\n")
                 type = "text/plain"
             }
 

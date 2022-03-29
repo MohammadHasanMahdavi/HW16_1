@@ -37,7 +37,7 @@ class HomeViewModel(private val repository: TaskRepository) : ViewModel(){
     }
     fun searchDatabase(searchQuery : String?){
         thread {
-            taskList.value = repository.searchDatabase(searchQuery) as MutableList<Task>
+            taskList.postValue(repository.searchDatabase("%$searchQuery%") as MutableList<Task>)
         }
     }
 

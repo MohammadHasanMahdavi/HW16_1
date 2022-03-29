@@ -52,9 +52,19 @@ class HomeActivity : AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         val search = menu?.findItem(R.id.search)
-        search?.setOnMenuItemClickListener {
-            true
-        }
+        val searchView = search?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                model!!.searchDatabase(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                model!!.searchDatabase(newText)
+                return true
+            }
+
+        })
         val exit = menu?.findItem(R.id.exit)
         exit?.setOnMenuItemClickListener {
             val intent = Intent(this,LoginActivity::class.java)
