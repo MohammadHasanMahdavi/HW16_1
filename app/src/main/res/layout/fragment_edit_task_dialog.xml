@@ -69,7 +69,7 @@
 
         <Button
             android:layout_gravity="center"
-            android:id="@+id/edit_save_btn"
+            android:id="@+id/edit_save_btn2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -87,6 +87,12 @@
             android:text="@string/delete" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/edit_share_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="share"
+        android:layout_margin="16dp"/>
 
 
 </LinearLayout>

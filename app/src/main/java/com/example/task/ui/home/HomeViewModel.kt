@@ -10,19 +10,47 @@ import kotlin.concurrent.thread
 
 class HomeViewModel(private val repository: TaskRepository) : ViewModel(){
 
-    val taskList : MutableLiveData<List<Task>> by lazy {
-        MutableLiveData<List<Task>>()
+    val username : MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
     }
 
+    val taskList : MutableLiveData<MutableList<Task>> by lazy {
+        MutableLiveData<MutableList<Task>>()
+    }
+    val searchDatabaseResult : MutableLiveData<MutableList<Task>> by lazy {
+        MutableLiveData<MutableList<Task>>()
+    }
+
+    fun deleteTask(task: Task){
+        thread { repository.deleteTask(task)}.join(5000)
+        getTasks()
+    }
+
+    fun updateTask(task: Task){
+        thread { repository.updateTask(task) }.join(5000)
+        getTasks()
+    }
     fun insertTask(task: Task){
         repository.insertTask(task)
         getTasks()
     }
     fun getTasks(){
-        var databaseTaskList = listOf<Task>()
-         thread { databaseTaskList = repository.getTaskList()
+        var databaseTaskList = mutableListOf<Task>()
+         thread { databaseTaskList = repository.getTaskList(this.username.value) as MutableList<Task>
          Log.d("TAGG",databaseTaskList.toString())}.join(5000)
         taskList.postValue(databaseTaskList)
+    }
+    fun searchDatabase(searchQuery : String?){
+        thread {
+            searchDatabaseResult.value = repository.searchDatabase(searchQuery) as MutableList<Task>
+        }
+    }
+
+    fun deleteAll() {
+        thread {
+            repository.deleteAll(username.value)
+        }.join(5000)
+        getTasks()
     }
 
 }

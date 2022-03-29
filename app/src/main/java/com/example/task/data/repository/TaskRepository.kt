@@ -16,7 +16,14 @@ class TaskRepository (private var localDatasource: LocalDatasource){
         localDatasource.updateTask(task)
     }
 
-    fun getTaskList() : List<Task>{
-        return localDatasource.getTasks()
+    fun getTaskList(username : String?) : List<Task>{
+        return localDatasource.getTasks(username)
+    }
+    fun searchDatabase(searchQuery:String?) : List<Task>{
+        return localDatasource.searchDatabase(searchQuery)
+    }
+
+    fun deleteAll(username: String?) {
+        localDatasource.deleteAll(username)
     }
 }

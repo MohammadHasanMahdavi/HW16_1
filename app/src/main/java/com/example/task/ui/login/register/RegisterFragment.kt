@@ -15,12 +15,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.task.R
 import com.example.task.model.User
 import com.example.task.ui.home.HomeActivity
+import com.example.task.ui.login.EXTRAS_USERNAME
 import com.example.task.ui.login.UserViewModel
 import com.example.task.ui.login.UserViewModelFactory
 
-
 class RegisterFragment : Fragment(R.layout.fragment_register) {
-    val factory = UserViewModelFactory()
+    private val factory = UserViewModelFactory()
     var model :UserViewModel?= null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,10 +32,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val name = view.findViewById<EditText>(R.id.register_name_et).text.toString()
             val username = view.findViewById<EditText>(R.id.register_username_et).text.toString()
             val password = view.findViewById<EditText>(R.id.register_password_et).text.toString()
-            val user = User(0,username, password,name)
+            val user = User(username, password,name)
             if (model!!.registerCheck(username)){
                 model!!.insertUser(user)
                 val intent = Intent(requireContext(),HomeActivity::class.java)
+                intent.putExtra(EXTRAS_USERNAME,username)
                 startActivity(intent)
             }
             else

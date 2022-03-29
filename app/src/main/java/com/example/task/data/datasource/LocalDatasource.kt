@@ -19,8 +19,8 @@ class LocalDatasource (private var database:TaskDatabase) {
     fun updateTask(task: Task){
         taskDao.updateTask(task)
     }
-    fun getTasks():List<Task>{
-        return taskDao.getTaskList()
+    fun getTasks(username : String?):List<Task>{
+        return taskDao.getTaskList(username)
     }
 
     fun insertUser(user: User){
@@ -32,5 +32,12 @@ class LocalDatasource (private var database:TaskDatabase) {
 
     fun registerCheck(username:String) : Boolean{
         return userDao.registerCheck(username)==0
+    }
+    fun searchDatabase(searchQuery : String?) : List<Task>{
+        return taskDao.searchDatabase(searchQuery)
+    }
+
+    fun deleteAll(username: String?) {
+        taskDao.deleteAll(username)
     }
 }

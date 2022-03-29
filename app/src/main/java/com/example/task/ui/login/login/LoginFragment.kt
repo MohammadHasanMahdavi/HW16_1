@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.task.R
 import com.example.task.ui.home.HomeActivity
+import com.example.task.ui.login.EXTRAS_USERNAME
 import com.example.task.ui.login.UserViewModel
 import com.example.task.ui.login.UserViewModelFactory
 
@@ -32,6 +33,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (model!!.loginCheck(username,password))
             {
                 val intent = Intent(requireContext(),HomeActivity::class.java)
+                intent.putExtra(EXTRAS_USERNAME,username)
                 startActivity(intent)
             }
             else

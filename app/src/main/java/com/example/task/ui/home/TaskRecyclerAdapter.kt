@@ -31,12 +31,13 @@ class TaskRecyclerAdapter(var taskList : MutableList<Task>,val manager : Fragmen
                 val description = taskList[position].description
                 val date = taskList[position].date
                 val time = taskList[position].time
+                val id = taskList[position].id
                 holder.bind(
-                    0, taskList[position].date, taskList[position].time, taskList[position].title,taskList[position].state
+                    0, taskList[position].date, taskList[position].time, taskList[position].title,taskList[position].state,id
                 )
                 val lis = object : ClickListener {
                     override fun onClickListener() {
-                        val dialog = EditTaskDialogFragment(title,description,date,time)
+                        val dialog = EditTaskDialogFragment(title,description,date,time,id)
                         Log.d("TagDeb1",title)
                         Log.d("TagDeb1",description)
                         dialog.show(manager,"Edit")
@@ -60,12 +61,15 @@ class TaskRecyclerAdapter(var taskList : MutableList<Task>,val manager : Fragmen
         val dateTextView: TextView = itemView.findViewById(R.id.date_tv)
         val timeTextView: TextView = itemView.findViewById(R.id.time_tv)
         val titleTextView: TextView = itemView.findViewById(R.id.title_tv)
+        var taskId : Int? = null
 
-        fun bind(imageId:Int,date:String,time:String,title:String,state:State){
+        fun bind(imageId:Int,date:String,time:String,title:String,state:State,id:Int){
+
             //imageView.setImageResource(imageId)
             dateTextView.text = date
             timeTextView.text = time
             titleTextView.text = title
+            taskId = id
         }
     }
 }

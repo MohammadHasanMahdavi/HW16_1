@@ -9,7 +9,7 @@ import java.util.*
 @Entity(tableName = "Task")
 data class Task (
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "Id") val id : Int,
-    @ColumnInfo(name = "UserOwnerId") val userOwnerId : Int,
+    @ColumnInfo(name = "UserOwnerName") val userOwnerName : String?,
     @ColumnInfo(name = "Title") val title:String,
     @ColumnInfo(name = "Description") val description : String,
     @ColumnInfo(name = "Date") val date : String,

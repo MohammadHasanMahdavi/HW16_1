@@ -55,21 +55,10 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/time"
-        app:layout_constraintBottom_toTopOf="@+id/done_cb"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_btn" />
-
-    <CheckBox
-        android:id="@+id/done_cb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/time_btn"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/time_btn"
-        app:layout_constraintTop_toBottomOf="@+id/time_btn" />
 
     <Button
         android:id="@+id/cancel_btn"
@@ -82,7 +71,7 @@
         app:layout_constraintEnd_toStartOf="@+id/save_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/done_cb" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Button
         android:id="@+id/save_btn"
@@ -94,4 +83,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cancel_btn" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.715"
+        tools:layout_editor_absoluteX="16dp">
+
+        <RadioButton
+            android:id="@+id/done_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DONE" />
+
+        <RadioButton
+            android:id="@+id/doing_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DOING" />
+
+        <RadioButton
+            android:id="@+id/todo_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODO" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,14 @@
         android:id="@+id/todo_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/empty_todo_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:text="@string/no_task_available"
+        android:visibility="gone"/>
 </FrameLayout>

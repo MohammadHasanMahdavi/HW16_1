@@ -3,22 +3,23 @@ package com.example.task.ui.home.dialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.TimePicker
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.task.R
+import com.example.task.model.State
+import com.example.task.model.Task
 import com.example.task.ui.home.HomeViewModel
 import com.example.task.ui.home.HomeViewModelFractory
 import java.util.*
 
-class EditTaskDialogFragment(var title:String,var description:String,var date:String,var time :String) : DialogFragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener  {
+class EditTaskDialogFragment(var title:String,var description:String,var date:String,var time :String,var taskId:Int) : DialogFragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener  {
     private val factory = HomeViewModelFractory()
     private var model : HomeViewModel? = null
     private var day = 0
@@ -43,7 +44,7 @@ class EditTaskDialogFragment(var title:String,var description:String,var date:St
         val editTimeButton = rootView.findViewById<Button>(R.id.edit_time_btn)
         editTimeButton.text = time
         editTimeButton.isEnabled = false
-        val editSaveButton = rootView.findViewById<Button>(R.id.edit_save_btn)
+        val editSaveButton = rootView.findViewById<Button>(R.id.edit_save_btn2)
         val titleEditText = rootView.findViewById<EditText>(R.id.edit_title_et)
         titleEditText.isEnabled = false
         titleEditText.setText(title)
@@ -52,14 +53,33 @@ class EditTaskDialogFragment(var title:String,var description:String,var date:St
         descriptionEditText.setText(description)
         val editButton = rootView.findViewById<Button>(R.id.edit_btn)
         val deleteButton = rootView.findViewById<Button>(R.id.delete_btn)
+        val shareButton = rootView.findViewById<Button>(R.id.edit_share_btn)
 
+        shareButton.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
 
         deleteButton.setOnClickListener {
-
+            model!!.deleteTask(
+                Task(taskId,model!!.username.value,title,description,date,time,State.DONE)
+            )
+            dismiss()
         }
 
         editSaveButton.setOnClickListener {
-
+            model!!.updateTask(
+                Task(taskId,model!!.username.value,title,description,date,time,State.DONE)
+            )
+            Log.d("TAGGG",taskId.toString())
+            Toast.makeText(requireContext(), taskId.toString(), Toast.LENGTH_SHORT).show()
+            dismiss()
         }
 
         editButton.setOnClickListener {
@@ -107,4 +127,5 @@ class EditTaskDialogFragment(var title:String,var description:String,var date:St
         super.onAttach(context)
         model = ViewModelProvider(requireActivity(),factory).get(HomeViewModel::class.java)
     }
+
 }
