@@ -1,11 +1,12 @@
 package com.example.task.ui.home.doing
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +22,10 @@ import kotlin.concurrent.thread
 
 class DoingFragment : Fragment(R.layout.fragment_doing) {
     val factory = HomeViewModelFractory()
-    var model : HomeViewModel? = null
-    val taskList = mutableListOf<Task>()
+    var viewModel : HomeViewModel? = null
+    private val taskList = mutableListOf<Task>()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -33,8 +35,8 @@ class DoingFragment : Fragment(R.layout.fragment_doing) {
         doingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
-        model!!.taskList.observe(viewLifecycleOwner){
-            val doingList = it.filter { it.state == State.DOING  }
+        viewModel!!.taskList.observe(viewLifecycleOwner){ taskList->
+            val doingList = taskList.filter { it.state == State.DOING  }
             taskList.clear()
             taskList.addAll(doingList)
             val emptyTextView : TextView = view.findViewById(R.id.empty_doing_tv)
@@ -50,14 +52,14 @@ class DoingFragment : Fragment(R.layout.fragment_doing) {
         }
 
         thread {
-            model!!.getTasks()
+            viewModel!!.getTasks()
         }
-        Toast.makeText(requireContext(), model!!.username.value, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), viewModel!!.username.value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        model = ViewModelProvider(requireActivity(),factory).get(HomeViewModel::class.java)
-        model!!.username.value = requireActivity().intent.getStringExtra(EXTRAS_USERNAME)
+        viewModel = ViewModelProvider(requireActivity(),factory).get(HomeViewModel::class.java)
+        viewModel!!.username.value = requireActivity().intent.getStringExtra(EXTRAS_USERNAME)
     }
 }

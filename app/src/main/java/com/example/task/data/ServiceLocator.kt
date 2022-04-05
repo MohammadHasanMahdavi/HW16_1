@@ -14,7 +14,7 @@ class ServiceLocator {
         private val userRepository = UserRepository(localDatasource)
         fun getTaskRepository() : TaskRepository {
             return taskRepository
-        }//
+        }
         fun getUserRepository() : UserRepository{
             return userRepository
         }

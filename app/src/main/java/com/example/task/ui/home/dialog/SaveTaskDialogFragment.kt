@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.DatePicker
+import android.widget.TimePicker
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.task.R
+import com.example.task.databinding.FragmentSaveTaskDialogBinding
 import com.example.task.model.State
 import com.example.task.model.Task
 import com.example.task.ui.home.HomeViewModel
@@ -19,10 +21,11 @@ import java.util.*
 import kotlin.concurrent.thread
 
 
-class SaveTaskDialogFragment() : DialogFragment(), DatePickerDialog.OnDateSetListener,
+class SaveTaskDialogFragment: DialogFragment(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
     private val factory = HomeViewModelFractory()
     private var model: HomeViewModel? = null
+    private lateinit var binding:FragmentSaveTaskDialogBinding
     private var day = 0
     private var month = 0
     private var year = 0
@@ -31,11 +34,6 @@ class SaveTaskDialogFragment() : DialogFragment(), DatePickerDialog.OnDateSetLis
 
     private var dateAsString = ""
     private var timeAsString = ""
-    private var savedDay = 0
-    private var savedMonth = 0
-    private var savedYear = 0
-    private var savedHour = 0
-    private var savedMinute = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,27 +41,22 @@ class SaveTaskDialogFragment() : DialogFragment(), DatePickerDialog.OnDateSetLis
         savedInstanceState: Bundle?
     ): View {
 
-        val rootView: View = inflater.inflate(R.layout.fragment_save_task_dialog, container, false)
-        val cancelButton = rootView.findViewById<Button>(R.id.cancel_btn)
-        val saveButton = rootView.findViewById<Button>(R.id.save_btn)
-        val datePickerButton = rootView.findViewById<Button>(R.id.date_btn)
-        val timePickerButton = rootView.findViewById<Button>(R.id.time_btn)
+        binding = FragmentSaveTaskDialogBinding.inflate(layoutInflater)
 
-        cancelButton.setOnClickListener {
+        binding.cancelBtn.setOnClickListener {
             dismiss()
         }
+        binding.saveBtn.setOnClickListener {
 
-        saveButton.setOnClickListener {
-
-            val title = rootView.findViewById<EditText>(R.id.title_et).text.toString()
-            val description = rootView.findViewById<EditText>(R.id.description_et).text.toString()
-            val done = rootView.findViewById<RadioButton>(R.id.done_rb)
-            val todo = rootView.findViewById<RadioButton>(R.id.todo_rb)
-            val doing = rootView.findViewById<RadioButton>(R.id.doing_rb)
-            if (!(done.isChecked || doing.isChecked || todo.isChecked))
+            val title = binding.titleEt.text.toString()
+            val description = binding.descriptionEt.text.toString()
+            val done = binding.doneRb
+            val todo = binding.todoRb
+            val doing = binding.doingRb
+            if (!(done.isChecked || doing.isChecked || todo.isChecked)) {
                 Toast.makeText(requireContext(), "Please Select A State.", Toast.LENGTH_SHORT)
                     .show()
-            else {
+            } else {
                 val state =
                     if (done.isChecked) State.DONE else if (todo.isChecked) State.TODO else State.DOING
 
@@ -88,15 +81,15 @@ class SaveTaskDialogFragment() : DialogFragment(), DatePickerDialog.OnDateSetLis
 
         }
 
-        datePickerButton.setOnClickListener {
+        binding.dateBtn.setOnClickListener {
             DatePickerDialog(requireContext(), this, year, month, day).show()
         }
-        timePickerButton.setOnClickListener {
+        binding.timeBtn.setOnClickListener {
             TimePickerDialog(requireContext(), this, hour, minute, false).show()
         }
 
         getDateTimeCalendar()
-        return rootView
+        return binding.root
     }
 
     private fun getDateTimeCalendar() {
@@ -116,25 +109,15 @@ class SaveTaskDialogFragment() : DialogFragment(), DatePickerDialog.OnDateSetLis
     }
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        savedDay = dayOfMonth
-        savedMonth = month
-        savedYear = year
-        dateAsString = "$savedYear-$savedDay-$savedMonth"
-        getDateTimeCalendar()
+        dateAsString = "$year-$dayOfMonth-$month"
         Toast.makeText(requireContext(), dateAsString, Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
-        savedHour = p1
-        savedMinute = p2
-
-        val savedHourAsString = if (savedHour < 10) "0$savedHour" else "$savedHour"
-        val savedMinuteAsString = if (savedMinute < 10) "0$savedMinute " else "$savedMinute "
-
+        val savedHourAsString = if (p1 < 10) "0$p1" else "$p1"
+        val savedMinuteAsString = if (p2 < 10) "0$p2 " else "$p2 "
         timeAsString = "$savedHourAsString:$savedMinuteAsString"
-        getDateTimeCalendar()
-        Toast.makeText(requireContext(), timeAsString, Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onAttach(context: Context) {

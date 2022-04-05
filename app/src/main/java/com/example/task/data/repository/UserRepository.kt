@@ -5,7 +5,7 @@ import com.example.task.model.User
 
 class UserRepository(private var localDatasource: LocalDatasource) {
 
-    fun insetrUser(user: User){
+    fun insertUser(user: User){
         localDatasource.insertUser(user)
     }
     fun loginCheck(username:String,password:String) : Boolean {
